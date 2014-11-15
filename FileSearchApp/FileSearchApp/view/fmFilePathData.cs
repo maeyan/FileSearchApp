@@ -8,8 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace FileSearchApp {
-    public partial class fmFilePathData : Form {
-        public fmFilePathData() {
+    public partial class fmFilePathSetting : Form {
+        public fmFilePathSetting() {
             InitializeComponent();
         }
     }
