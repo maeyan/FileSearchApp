@@ -1,5 +1,5 @@
 ﻿namespace FileSearchApp {
-    partial class Form1 {
+    partial class fmFilePathData {
         /// <summary>
         /// 必要なデザイナー変数です。
         /// </summary>
@@ -25,10 +25,9 @@
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "Form1";
+            this.Text = "fmFilePathData";
         }
 
         #endregion
     }
 }
-
