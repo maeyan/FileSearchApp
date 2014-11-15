@@ -60,6 +60,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="view\fmFilePathData.resx">
+      <DependentUpon>fmFilePathData.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="view\fmFileSearch.resx">
       <DependentUpon>fmFileSearch.cs</DependentUpon>
     </EmbeddedResource>

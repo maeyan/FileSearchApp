@@ -23,9 +23,17 @@
         /// コード エディターで変更しないでください。
         /// </summary>
         private void InitializeComponent() {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // fmFilePathData
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(455, 262);
+            this.Name = "fmFilePathData";
             this.Text = "fmFilePathData";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
