@@ -144,6 +144,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 450);
             this.Name = "fmFilePathSetting";
             this.Text = "ファイルパス収集の設定";
+            this.Load += new System.EventHandler(this.fmFilePathSetting_Load);
             this.flp_targetFolderPath.ResumeLayout(false);
             this.pnl_form.ResumeLayout(false);
             this.pnl_form.PerformLayout();
