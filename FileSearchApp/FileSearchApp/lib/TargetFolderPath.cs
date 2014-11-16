@@ -25,7 +25,9 @@ namespace FileSearchApp.lib {
         /// <param name="folderPath"></param>
         public void addFolderPath(string folderPath, string depth) {
 
-            if (!Directory.Exists(folderPath)) {
+            if (folderPath == "") {
+                return;
+            }else if (!Directory.Exists(folderPath)) {
                 throw new FileSearchException("フォルダが存在しません。");
             }
 
@@ -37,6 +39,7 @@ namespace FileSearchApp.lib {
             lb_FolderPath.AutoEllipsis = true;
             lb_FolderPath.ForeColor = Color.Green;
             lb_FolderPath.Location = new Point(60, 3);
+            lb_FolderPath.Name = "lb_FolderPath@" + counter.ToString();
             lb_FolderPath.Size = new Size(300, 18);
             lb_FolderPath.Text = folderPath;
 
@@ -54,6 +57,7 @@ namespace FileSearchApp.lib {
             Label lb_Depth = new Label();
             lb_Depth.AutoEllipsis = true;
             lb_Depth.Location = new Point(60, 22);
+            lb_Depth.Name = "lb_Depth@" + counter.ToString();
             lb_Depth.Size = new Size(300, 18);
             lb_Depth.Text = targetDepth;
 
@@ -61,7 +65,7 @@ namespace FileSearchApp.lib {
             //Panel
             Panel pnl_Area = new Panel();
             pnl_Area.Anchor = AnchorStyles.Right;
-            pnl_Area.Name = "pnl_FolderPath_" + counter.ToString();
+            pnl_Area.Name = "pnl_FolderPath@" + counter.ToString();
             pnl_Area.Size = new Size(555, 40);
             pnl_Area.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             pnl_Area.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
