@@ -68,6 +68,9 @@ namespace FileSearchApp.lib {
         }
 
 
+        /// <summary>
+        /// 初期状態のDBを作成する
+        /// </summary>
         public void initDB() {
             string currentFolderPath = System.Windows.Forms.Application.StartupPath;
             string dbPath = currentFolderPath + dbName;
@@ -91,6 +94,10 @@ namespace FileSearchApp.lib {
             }
         }
 
+
+        /// <summary>
+        /// コネクションを閉じる
+        /// </summary>
         public void Dispose() {
             con.Close();
         }
