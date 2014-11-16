@@ -9,10 +9,10 @@ using System.IO;
 
 namespace FileSearchApp.lib {
     class TargetFolderPath {
-        static public string TargetIncluseSubFolder = "SubFolder";
-        static public string TargetCurrentFolder = "CurrentFolder";
+        static public string TargetIncluseSubFolder = "[サブフォルダも含む]";
+        static public string TargetCurrentFolder = "[サブフォルダは含まない]";
 
-        private int counter = 0;
+        static private int counter = 0;
         FlowLayoutPanel _flp_targetFolderPath = null;
 
         public TargetFolderPath(FlowLayoutPanel flp_targetFolderPath) {
