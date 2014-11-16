@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace FileSearchApp.lib {
     class TargetFolderPath {
@@ -125,7 +122,7 @@ namespace FileSearchApp.lib {
 
             //Label
             Label lb_FolderName = new Label();
-            lb_FolderName.AutoEllipsis = true;
+            lb_FolderName.AutoSize = true;
             lb_FolderName.ForeColor = Color.FromArgb(0, 0, 192);
             lb_FolderName.Location = new Point(30, 5);
             lb_FolderName.Name = LB_FOLDER_NAME + counter.ToString();
@@ -133,6 +130,8 @@ namespace FileSearchApp.lib {
             lb_FolderName.Text = Path.GetFileName(folderPath);
             lb_FolderName.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             lb_FolderName.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
+            lb_FolderName.MouseEnter += new System.EventHandler(this.lb_FolderName_MouseEnter);
+            lb_FolderName.MouseLeave += new System.EventHandler(this.lb_FolderName_MouseLeave);
 
             //Label
             Label lb_FolderPath = new Label();
@@ -193,6 +192,18 @@ namespace FileSearchApp.lib {
 
             Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[pnl_AreaId];
             pnl_Area.BackColor = Color.White;
+        }
+
+        private void lb_FolderName_MouseEnter(object sender, EventArgs e) {
+            Label lb_FolderName = (Label)sender;
+            float fontSize = lb_FolderName.Font.Size;
+            lb_FolderName.Font = new Font("メイリオ", fontSize, FontStyle.Underline);
+        }
+
+        private void lb_FolderName_MouseLeave(object sender, EventArgs e) {
+            Label lb_FolderName = (Label)sender;
+            float fontSize = lb_FolderName.Font.Size;
+            lb_FolderName.Font = new Font("メイリオ", fontSize);
         }
     }
 }
