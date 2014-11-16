@@ -13,24 +13,11 @@ namespace FileSearchApp {
             InitializeComponent();
         }
 
-        private void lnkFilePathData_LinkClicked_1(object sender, LinkLabelLinkClickedEventArgs e) {
 
-        }
-
-        private void pnl_form_Paint(object sender, PaintEventArgs e) {
-
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e) {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e) {
-
-        }
-
-        private void tb_SearchWord_TextChanged(object sender, EventArgs e) {
-
+        private void pb_TargetFolderPath_Click(object sender, EventArgs e) {
+            fmFilePathSetting form = new fmFilePathSetting();
+            form.ShowDialog(this);
+            form.Dispose();
         }
     }
 }

@@ -46,11 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="view\fmFilePathData.cs">
+    <Compile Include="lib\FileSearchException.cs" />
+    <Compile Include="lib\TargetFolderPath.cs" />
+    <Compile Include="view\fmFilePathSetting.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\fmFilePathData.Designer.cs">
-      <DependentUpon>fmFilePathData.cs</DependentUpon>
+    <Compile Include="view\fmFilePathSetting.Designer.cs">
+      <DependentUpon>fmFilePathSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="view\fmFileSearch.cs">
       <SubType>Form</SubType>
@@ -60,8 +62,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="view\fmFilePathData.resx">
-      <DependentUpon>fmFilePathData.cs</DependentUpon>
+    <EmbeddedResource Include="view\fmFilePathSetting.resx">
+      <DependentUpon>fmFilePathSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="view\fmFileSearch.resx">
       <DependentUpon>fmFileSearch.cs</DependentUpon>
@@ -86,9 +88,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="lib\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="img\settings.png" />
   </ItemGroup>
