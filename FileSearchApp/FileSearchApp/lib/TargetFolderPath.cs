@@ -132,6 +132,7 @@ namespace FileSearchApp.lib {
             lb_FolderName.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
             lb_FolderName.MouseEnter += new System.EventHandler(this.lb_FolderName_MouseEnter);
             lb_FolderName.MouseLeave += new System.EventHandler(this.lb_FolderName_MouseLeave);
+            lb_FolderName.Click += new System.EventHandler(this.lb_FolderName_Click);
 
             //Label
             Label lb_FolderPath = new Label();
@@ -204,6 +205,19 @@ namespace FileSearchApp.lib {
             Label lb_FolderName = (Label)sender;
             float fontSize = lb_FolderName.Font.Size;
             lb_FolderName.Font = new Font("メイリオ", fontSize);
+        }
+
+        private void lb_FolderName_Click(object sender, EventArgs e) {
+            Label lb_FolderName = (Label)sender;
+            string id = lb_FolderName.Name.Split('@')[1];
+            Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[PNL_FOLDER_PATH + id];
+            Label lb_FolderPath = (Label)pnl_Area.Controls[LB_FOLDER_PATN + id];
+            
+            //存在すれば開く
+            if (Directory.Exists(lb_FolderPath.Text)) {
+                System.Diagnostics.Process.Start(lb_FolderPath.Text);
+            }
+
         }
     }
 }
