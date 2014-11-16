@@ -9,6 +9,11 @@ using System.IO;
 
 namespace FileSearchApp.lib {
     class TargetFolderPath {
+
+        const string LB_FOLDER_PATN_NAME = "lb_FolderPath@";
+        const string LB_DEPTH_NAME = "lb_Depth@";
+        const string PNL_FOLDER_PATH_NAME = "pnl_FolderPath@";
+
         static public string TargetIncluseSubFolder = "[サブフォルダも含む]";
         static public string TargetCurrentFolder = "[サブフォルダは含まない]";
 
@@ -39,7 +44,7 @@ namespace FileSearchApp.lib {
             lb_FolderPath.AutoEllipsis = true;
             lb_FolderPath.ForeColor = Color.Green;
             lb_FolderPath.Location = new Point(60, 3);
-            lb_FolderPath.Name = "lb_FolderPath@" + counter.ToString();
+            lb_FolderPath.Name = LB_FOLDER_PATN_NAME + counter.ToString();
             lb_FolderPath.Size = new Size(300, 18);
             lb_FolderPath.Text = folderPath;
 
@@ -57,7 +62,7 @@ namespace FileSearchApp.lib {
             Label lb_Depth = new Label();
             lb_Depth.AutoEllipsis = true;
             lb_Depth.Location = new Point(60, 22);
-            lb_Depth.Name = "lb_Depth@" + counter.ToString();
+            lb_Depth.Name = LB_DEPTH_NAME + counter.ToString();
             lb_Depth.Size = new Size(300, 18);
             lb_Depth.Text = targetDepth;
 
@@ -65,7 +70,7 @@ namespace FileSearchApp.lib {
             //Panel
             Panel pnl_Area = new Panel();
             pnl_Area.Anchor = AnchorStyles.Right;
-            pnl_Area.Name = "pnl_FolderPath@" + counter.ToString();
+            pnl_Area.Name = PNL_FOLDER_PATH_NAME + counter.ToString();
             pnl_Area.Size = new Size(555, 40);
             pnl_Area.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             pnl_Area.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
