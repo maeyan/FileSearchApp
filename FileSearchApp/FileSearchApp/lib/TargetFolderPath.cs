@@ -107,6 +107,7 @@ namespace FileSearchApp.lib {
                         List<string> data = new List<string>();
                         data.Add(c.Controls[LB_FOLDER_PATN + id].Text);
                         data.Add(c.Controls[LB_DEPTH + id].Text);
+                        folderPaths.Add(data);
                 }
             }
 

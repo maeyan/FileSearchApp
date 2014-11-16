@@ -33,6 +33,9 @@ namespace FileSearchApp {
                 tfp.addFolderPath(this.tb_FolderPath.Text, depth);
                 this.tb_FolderPath.Text = "";
 
+                SearchDB db = new SearchDB();
+                db.setFolderPath(tfp.getFolderPaths());
+
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             }
