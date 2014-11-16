@@ -46,9 +46,9 @@
             // 
             this.tb_FolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tb_FolderPath.Location = new System.Drawing.Point(60, 64);
+            this.tb_FolderPath.Location = new System.Drawing.Point(30, 64);
             this.tb_FolderPath.Name = "tb_FolderPath";
-            this.tb_FolderPath.Size = new System.Drawing.Size(419, 25);
+            this.tb_FolderPath.Size = new System.Drawing.Size(449, 25);
             this.tb_FolderPath.TabIndex = 0;
             this.tb_FolderPath.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tb_FolderPath_KeyDown);
             // 
@@ -89,7 +89,7 @@
             // rb_CurrentFolder
             // 
             this.rb_CurrentFolder.AutoSize = true;
-            this.rb_CurrentFolder.Location = new System.Drawing.Point(188, 36);
+            this.rb_CurrentFolder.Location = new System.Drawing.Point(158, 36);
             this.rb_CurrentFolder.Name = "rb_CurrentFolder";
             this.rb_CurrentFolder.Size = new System.Drawing.Size(146, 22);
             this.rb_CurrentFolder.TabIndex = 5;
@@ -100,7 +100,7 @@
             // 
             this.rb_IncludeSubFolder.AutoSize = true;
             this.rb_IncludeSubFolder.Checked = true;
-            this.rb_IncludeSubFolder.Location = new System.Drawing.Point(60, 36);
+            this.rb_IncludeSubFolder.Location = new System.Drawing.Point(30, 36);
             this.rb_IncludeSubFolder.Name = "rb_IncludeSubFolder";
             this.rb_IncludeSubFolder.Size = new System.Drawing.Size(122, 22);
             this.rb_IncludeSubFolder.TabIndex = 4;
