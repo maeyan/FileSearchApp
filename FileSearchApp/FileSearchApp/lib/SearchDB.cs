@@ -67,7 +67,34 @@ namespace FileSearchApp.lib {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<List<string>> getFolderPath() {
+            List<List<string>> folderPaths = new List<List<string>>();
 
+            using (SQLiteCommand cmd = con.CreateCommand()) {
+                string sql = @"SELECT FolderPath, SubFolder FROM TargetFolderPath;";
+                cmd.CommandText = sql;
+                using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        string folderPath = reader["FolderPath"].ToString();
+                        string subFolder = reader["SubFolder"].ToString();
+                        List<string> data = new List<string>();
+                        data.Add(folderPath);
+                        data.Add(subFolder);
+                        folderPaths.Add(data); 
+                    }
+                }
+            }
+
+            return folderPaths;
+        }
+
+        /// <summary>
+        /// 初期状態のDBを作成する
+        /// </summary>
         public void initDB() {
             string currentFolderPath = System.Windows.Forms.Application.StartupPath;
             string dbPath = currentFolderPath + dbName;
@@ -91,6 +118,10 @@ namespace FileSearchApp.lib {
             }
         }
 
+
+        /// <summary>
+        /// コネクションを閉じる
+        /// </summary>
         public void Dispose() {
             con.Close();
         }

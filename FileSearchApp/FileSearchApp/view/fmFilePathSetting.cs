@@ -48,5 +48,17 @@ namespace FileSearchApp {
             }
         }
 
+        private void fmFilePathSetting_Load(object sender, EventArgs e) {
+            List<List<string>> folderPaths = new List<List<string>>();
+            SearchDB db = new SearchDB();
+            folderPaths = db.getFolderPath();
+
+            TargetFolderPath tfp = new TargetFolderPath(this.flp_targetFolderPath);
+            foreach (List<string> data in folderPaths) {
+                tfp.addFolderPath(data[0], data[1]);
+            }
+
+        }
+
     }
 }
