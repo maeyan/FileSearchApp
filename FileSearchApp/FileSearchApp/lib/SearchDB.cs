@@ -37,6 +37,22 @@ namespace FileSearchApp.lib {
             }
         }
 
+        public void DeleteTargetFolderPath(string folderPath) {
+            using (SQLiteTransaction trans = con.BeginTransaction()) {
+                using (SQLiteCommand cmd = con.CreateCommand()) {
+                    string sql = "DELETE FROM TargetFolderPath WHERE FolderPath = @folderPath";
+                    cmd.CommandText = sql;
+
+                    cmd.Parameters.Add("folderPath", System.Data.DbType.String);
+                    cmd.Parameters["folderPath"].Value = folderPath;
+
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+                trans.Commit();
+            }
+        }
+
         /// <summary>
         /// フォルダパスをDBに登録する
         /// </summary>
@@ -46,7 +62,7 @@ namespace FileSearchApp.lib {
             
             using (SQLiteTransaction trans = con.BeginTransaction()) {
                 using (SQLiteCommand cmd = con.CreateCommand()) {
-                    cmd.CommandText = @"DELETE FROM TargetFolderPath;"; //初期化
+                    cmd.CommandText = "DELETE FROM TargetFolderPath;"; //初期化
                     cmd.ExecuteNonQuery();
 
                     foreach (List<string> data in folderPaths) {
@@ -60,6 +76,7 @@ namespace FileSearchApp.lib {
                         cmd.Parameters.Add("subFolder", System.Data.DbType.String);
                         cmd.Parameters["subFolder"].Value = data[1];
 
+                        cmd.Prepare();
                         cmd.ExecuteNonQuery();
                     }
                 }
