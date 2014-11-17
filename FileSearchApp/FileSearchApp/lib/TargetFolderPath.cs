@@ -161,13 +161,14 @@ namespace FileSearchApp.lib {
             bt_Update.BackColor = Color.FromArgb(100, 100, 100);
             bt_Update.Font = new Font("メイリオ", 7);
             bt_Update.ForeColor = Color.White;
-            bt_Update.Location = new Point(180, 41);
+            bt_Update.Location = new Point(180, 40);
             bt_Update.Name = BT_UPDATE + counter.ToString();
             bt_Update.Size = new Size(60, 23);
             bt_Update.Text = "Update";
             bt_Update.Visible = false;
             bt_Update.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             bt_Update.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
+            bt_Update.Click += new System.EventHandler(this.bt_Update_Click);
 
             //Button
             Button bt_Delete = new Button();
@@ -175,7 +176,7 @@ namespace FileSearchApp.lib {
             bt_Delete.BackColor = Color.FromArgb(100, 100, 100);
             bt_Delete.Font = new Font("メイリオ", 7);
             bt_Delete.ForeColor = Color.White;
-            bt_Delete.Location = new Point(245, 41);
+            bt_Delete.Location = new Point(245, 40);
             bt_Delete.Name = BT_DELETE + counter.ToString();
             bt_Delete.Size = new Size(60, 23);
             bt_Delete.Text = "Delete";
@@ -188,7 +189,7 @@ namespace FileSearchApp.lib {
             Panel pnl_Area = new Panel();
             pnl_Area.Anchor = AnchorStyles.Right;
             pnl_Area.Name = PNL_FOLDER_PATH + counter.ToString();
-            pnl_Area.Size = new Size(555, 70);
+            pnl_Area.Size = new Size(555, 72);
             pnl_Area.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             pnl_Area.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
             
@@ -201,11 +202,19 @@ namespace FileSearchApp.lib {
             _flp_targetFolderPath.Controls.Add(pnl_Area);
         }
 
+        private void bt_Update_Click(object sender, EventArgs e) {
+
+        }
+
         private void bt_Delete_Click(object sender, EventArgs e) {
             string id = ((Button)sender).Name.Split('@')[1];
             Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[PNL_FOLDER_PATH + id];
-            _flp_targetFolderPath.Controls.Remove(pnl_Area);
+            Label lb_FolderPath = (Label) pnl_Area.Controls[LB_FOLDER_PATN + id];
 
+            SearchDB db = new SearchDB();
+            db.DeleteTargetFolderPath(lb_FolderPath.Text);
+            _flp_targetFolderPath.Controls.Remove(pnl_Area);
+            
         }
 
         private void pnl_Area_MouseEnter(object sender, EventArgs e) {
@@ -244,7 +253,7 @@ namespace FileSearchApp.lib {
             string pnl_AreaId = "";
             string bt_UpdateId = "";
             string bt_DeleteId = "";
-
+            
             if (sender.GetType().ToString() == "System.Windows.Forms.Panel") {
                 pnl_AreaId = ((Panel)sender).Name;
                 bt_UpdateId = BT_UPDATE + ((Panel)sender).Name.Split('@')[1];
@@ -264,7 +273,7 @@ namespace FileSearchApp.lib {
 
             //Panelの背景色を白に戻す
             Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[pnl_AreaId];
-
+            
             //PanelをDeleteしたことによるLeaveの時nullとなっているので抜ける
             if (pnl_Area == null) { return; }
             
