@@ -182,6 +182,7 @@ namespace FileSearchApp.lib {
             bt_Delete.Visible = false;
             bt_Delete.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             bt_Delete.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
+            bt_Delete.Click += new System.EventHandler(this.bt_Delete_Click);
 
             //Panel
             Panel pnl_Area = new Panel();
@@ -198,6 +199,13 @@ namespace FileSearchApp.lib {
             pnl_Area.Controls.Add(bt_Update);
             pnl_Area.Controls.Add(bt_Delete);
             _flp_targetFolderPath.Controls.Add(pnl_Area);
+        }
+
+        private void bt_Delete_Click(object sender, EventArgs e) {
+            string id = ((Button)sender).Name.Split('@')[1];
+            Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[PNL_FOLDER_PATH + id];
+            _flp_targetFolderPath.Controls.Remove(pnl_Area);
+
         }
 
         private void pnl_Area_MouseEnter(object sender, EventArgs e) {
@@ -256,6 +264,11 @@ namespace FileSearchApp.lib {
 
             //Panelの背景色を白に戻す
             Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[pnl_AreaId];
+
+            //PanelをDeleteしたことによるLeaveの時nullとなっているので抜ける
+            if (pnl_Area == null) { return; }
+            
+            //背景色を元に戻す
             pnl_Area.BackColor = Color.White;
 
             //フォーム上の座標を調べる
