@@ -32,9 +32,12 @@
             this.rb_CurrentFolder = new System.Windows.Forms.RadioButton();
             this.rb_IncludeSubFolder = new System.Windows.Forms.RadioButton();
             this.bt_addFolderPath = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.flp_targetFolderPath.SuspendLayout();
             this.pnl_form.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip
@@ -65,7 +68,7 @@
             // 
             this.flp_targetFolderPath.AutoScroll = true;
             this.flp_targetFolderPath.Controls.Add(this.pnl_form);
-            this.flp_targetFolderPath.Controls.Add(this.label1);
+            this.flp_targetFolderPath.Controls.Add(this.panel1);
             this.flp_targetFolderPath.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flp_targetFolderPath.Location = new System.Drawing.Point(0, 0);
             this.flp_targetFolderPath.Name = "flp_targetFolderPath";
@@ -122,13 +125,36 @@
             this.bt_addFolderPath.UseVisualStyleBackColor = false;
             this.bt_addFolderPath.Click += new System.EventHandler(this.bt_addFolderPath_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(3, 110);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(555, 34);
+            this.panel1.TabIndex = 5;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(133)))), ((int)(((byte)(244)))));
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(181, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(76, 25);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "全て更新";
+            this.button1.UseVisualStyleBackColor = false;
+            // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(3, 107);
+            this.label1.Location = new System.Drawing.Point(3, 4);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(555, 24);
+            this.label1.Size = new System.Drawing.Size(172, 24);
             this.label1.TabIndex = 4;
             this.label1.Text = "▼収集対象フォルダパス一覧";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // fmFilePathSetting
             // 
@@ -148,6 +174,7 @@
             this.flp_targetFolderPath.ResumeLayout(false);
             this.pnl_form.ResumeLayout(false);
             this.pnl_form.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -163,5 +190,7 @@
         private System.Windows.Forms.RadioButton rb_CurrentFolder;
         private System.Windows.Forms.RadioButton rb_IncludeSubFolder;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -5,13 +5,14 @@ using System.IO;
 using System.Windows.Forms;
 
 namespace FileSearchApp.lib {
-    class TargetFolderPath {
+    public class TargetFolderPath {
         const string BT_UPDATE = "bt_Update@";
         const string BT_DELETE = "bt_Delete@";
         const string LB_FOLDER_NAME = "lb_FolderName@";
         const string LB_FOLDER_PATN = "lb_FolderPath@";
         const string LB_DEPTH = "lb_Depth@";
         const string PNL_FOLDER_PATH = "pnl_FolderPath@";
+        const string UPDATE_EXE = "FolderPathUpdate.exe";
 
         static public string TargetIncluseSubFolder = "[サブフォルダも含む]";
         static public string TargetCurrentFolder = "[サブフォルダは含まない]";
@@ -203,7 +204,15 @@ namespace FileSearchApp.lib {
         }
 
         private void bt_Update_Click(object sender, EventArgs e) {
-
+            string id = ((Button)sender).Name.Split('@')[1];
+            Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[PNL_FOLDER_PATH + id];
+            Label lb_FolderPath = (Label)pnl_Area.Controls[LB_FOLDER_PATN + id];
+            Label lb_Depth = (Label)pnl_Area.Controls[LB_DEPTH + id];
+            
+            string currentFolderPath = System.Windows.Forms.Application.StartupPath;
+            string updateExePath = currentFolderPath + @"\" + UPDATE_EXE;
+            string argument = "\"" + lb_FolderPath.Text + "\" " + lb_Depth.Text;
+            System.Diagnostics.Process.Start(updateExePath, argument);
         }
 
         private void bt_Delete_Click(object sender, EventArgs e) {

@@ -6,7 +6,7 @@ using System.Data.SQLite;
 using System.IO;
 
 namespace FileSearchApp.lib {
-    class SearchDB : IDisposable {
+    public class SearchDB : IDisposable {
         const string PASSWORD = "password";
         static string dbName = @"\search.db";
         private SQLiteConnection con = null;
@@ -130,11 +130,58 @@ namespace FileSearchApp.lib {
                         cmd.ExecuteNonQuery();
                     }
 
+                    sql = "CREATE TABLE [FileList] (" +
+                          "[FilePath]  VARCHAR(500) PRIMARY KEY," +
+                          "[FileName]  VARCHAR(50)  NOT NULL" +
+                          ");";
+
+                    using (SQLiteCommand cmd = con.CreateCommand()) {
+                        cmd.CommandText = sql;
+                        cmd.ExecuteNonQuery();
+                    }
+
                     trans.Commit();
                 }
             }
         }
 
+        /// <summary>
+        /// ファイルパスを更新する
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="filePaths"></param>
+        public void UpdateFilePaths(string folderPath, string[] filePaths) {
+            using (SQLiteTransaction trans = con.BeginTransaction()) {
+                using (SQLiteCommand cmd = con.CreateCommand()) {
+                    string sql = "DELETE FROM FileList WHERE upper(FilePath) GLOB upper(@folderPath)";
+                    cmd.CommandText = sql;
+
+                    cmd.Parameters.Add("folderPath", System.Data.DbType.String);
+                    cmd.Parameters["folderPath"].Value = folderPath + "*";
+
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+
+
+                    foreach (string filePath in filePaths) {
+                        sql = "INSERT INTO FileList (FilePath, FileName) VALUES(@FilePath, @FileName);";
+                        cmd.CommandText = sql;
+
+                        cmd.Parameters.Clear();
+                        cmd.Parameters.Add("FilePath", System.Data.DbType.String);
+                        cmd.Parameters["FilePath"].Value = filePath;
+
+                        string fileName = Path.GetFileName(filePath);
+                        cmd.Parameters.Add("FileName", System.Data.DbType.String);
+                        cmd.Parameters["FileName"].Value = fileName;
+
+                        cmd.Prepare();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+                trans.Commit();
+            }
+        }
 
         /// <summary>
         /// コネクションを閉じる

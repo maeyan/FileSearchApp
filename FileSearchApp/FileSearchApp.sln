@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSearchApp", "FileSearchApp\FileSearchApp.csproj", "{32A47BB0-317B-48B3-B03A-F02410F4577E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FolderPathUpdate", "FolderPathUpdate\FolderPathUpdate.csproj", "{A3CCACBF-9188-4792-BBF8-6A84E9C8081C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -13,6 +15,10 @@ Global
 		{32A47BB0-317B-48B3-B03A-F02410F4577E}.Debug|x86.Build.0 = Debug|x86
 		{32A47BB0-317B-48B3-B03A-F02410F4577E}.Release|x86.ActiveCfg = Release|x86
 		{32A47BB0-317B-48B3-B03A-F02410F4577E}.Release|x86.Build.0 = Release|x86
+		{A3CCACBF-9188-4792-BBF8-6A84E9C8081C}.Debug|x86.ActiveCfg = Debug|x86
+		{A3CCACBF-9188-4792-BBF8-6A84E9C8081C}.Debug|x86.Build.0 = Debug|x86
+		{A3CCACBF-9188-4792-BBF8-6A84E9C8081C}.Release|x86.ActiveCfg = Release|x86
+		{A3CCACBF-9188-4792-BBF8-6A84E9C8081C}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
