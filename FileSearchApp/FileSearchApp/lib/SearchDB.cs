@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Data.SQLite;
 using System.IO;
+using System.Windows.Forms;
 
 namespace FileSearchApp.lib {
     public class SearchDB : IDisposable {
@@ -131,8 +132,9 @@ namespace FileSearchApp.lib {
                     }
 
                     sql = "CREATE TABLE [FileList] (" +
-                          "[FilePath]  VARCHAR(500) PRIMARY KEY," +
-                          "[FileName]  VARCHAR(50)  NOT NULL" +
+                          "[FilePath]   VARCHAR(500) PRIMARY KEY," +
+                          "[FolderName] VARCHAR(500) NOT NULL," +
+                          "[FileName]   VARCHAR(50)  NOT NULL" +
                           ");";
 
                     using (SQLiteCommand cmd = con.CreateCommand()) {
@@ -162,14 +164,16 @@ namespace FileSearchApp.lib {
                     cmd.Prepare();
                     cmd.ExecuteNonQuery();
 
-
                     foreach (string filePath in filePaths) {
-                        sql = "INSERT INTO FileList (FilePath, FileName) VALUES(@FilePath, @FileName);";
+                        sql = "INSERT INTO FileList (FilePath, FolderName, FileName) VALUES(@FilePath, @FolderName, @FileName);";
                         cmd.CommandText = sql;
 
                         cmd.Parameters.Clear();
                         cmd.Parameters.Add("FilePath", System.Data.DbType.String);
                         cmd.Parameters["FilePath"].Value = filePath;
+
+                        cmd.Parameters.Add("FolderName", System.Data.DbType.String);
+                        cmd.Parameters["FolderName"].Value = Path.GetDirectoryName(filePath);
 
                         string fileName = Path.GetFileName(filePath);
                         cmd.Parameters.Add("FileName", System.Data.DbType.String);
@@ -182,6 +186,8 @@ namespace FileSearchApp.lib {
                 trans.Commit();
             }
         }
+
+
 
         /// <summary>
         /// コネクションを閉じる
