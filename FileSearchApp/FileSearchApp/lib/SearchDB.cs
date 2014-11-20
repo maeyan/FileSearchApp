@@ -135,6 +135,59 @@ namespace FileSearchApp.lib {
         }
 
         /// <summary>
+        /// DBから対象フォルダパスを取得して全ての対象フォルダパスに対し
+        /// ファイルパスを取得する
+        /// </summary>
+        public void UpdateAllFilePaths() {
+            using (SQLiteTransaction trans = con.BeginTransaction()) {
+                using (SQLiteCommand cmd = con.CreateCommand()) {
+                    //TargetFolderPathテーブルから対象フォルダパスをすべて取得する
+                    string sql = "";
+
+                    //1.FileListテーブルを全て削除する
+                    sql = "DELETE FROM FileList;";
+                    cmd.CommandText = sql;
+                    cmd.ExecuteNonQuery();
+
+                    //2.TargetFolderPathテーブルから対象フォルダパス情報を取得する
+                    sql = "SELECT FolderPath, SubFolder FROM TargetFolderPath;";
+                    cmd.CommandText = sql;
+
+                    using(SQLiteDataReader reader = cmd.ExecuteReader()){
+                        while (reader.Read()) {
+                            string folderPath = reader["FolderPath"].ToString();
+                            string depth = reader["SubFolder"].ToString();
+
+                            //フォルダが見当たらない時は次の処理に移動
+                            if (!Directory.Exists(folderPath)) { continue; }
+
+                            SearchOption option;
+                            if (depth == TargetFolderPath.TargetIncluseSubFolder) {
+                                option = SearchOption.AllDirectories;
+                            } else if (depth == TargetFolderPath.TargetCurrentFolder) {
+                                option = SearchOption.TopDirectoryOnly;
+                            } else {
+                                MessageBox.Show("FolderPathUpdate.exe - Updateメソッドの引数が不正です");
+                                return;
+                            }
+
+                            //ファイルパスを取得
+                            try {
+                                string[] filePaths = Directory.GetFiles(folderPath, "*", option);
+                                UpdateFilePaths(folderPath, filePaths);
+
+                            } catch (Exception ex) {
+                                MessageBox.Show(ex.Message);
+                                return;
+                            }
+                        }
+                    }
+                }
+                trans.Commit();
+            }
+        }
+
+        /// <summary>
         /// ファイルパスを更新する
         /// </summary>
         /// <param name="folderPath"></param>
@@ -142,17 +195,9 @@ namespace FileSearchApp.lib {
         public void UpdateFilePaths(string folderPath, string[] filePaths) {
             using (SQLiteTransaction trans = con.BeginTransaction()) {
                 using (SQLiteCommand cmd = con.CreateCommand()) {
-                    string sql = "DELETE FROM FileList WHERE upper(FilePath) GLOB upper(@folderPath)";
-                    cmd.CommandText = sql;
-
-                    cmd.Parameters.Add("folderPath", System.Data.DbType.String);
-                    cmd.Parameters["folderPath"].Value = folderPath + "*";
-
-                    cmd.Prepare();
-                    cmd.ExecuteNonQuery();
 
                     foreach (string filePath in filePaths) {
-                        sql = "INSERT INTO FileList (FilePath, FolderName, FileName) VALUES(@FilePath, @FolderName, @FileName);";
+                        string sql = "INSERT INTO FileList (FilePath, FolderName, FileName) VALUES(@FilePath, @FolderName, @FileName);";
                         cmd.CommandText = sql;
 
                         cmd.Parameters.Clear();
@@ -175,6 +220,56 @@ namespace FileSearchApp.lib {
         }
 
 
+        /// <summary>
+        /// 特定のフォルダ配下のファイルパスのみ削除する
+        /// </summary>
+        /// <param name="folderPath"></param>
+        /// <param name="depth"></param>
+        public void DeleteFilePathInTargetFolder(string folderPath, string depth) {
+            using (SQLiteTransaction trans = con.BeginTransaction()) {
+                using (SQLiteCommand cmd = con.CreateCommand()) {
+
+                    string sql = "";
+                    if (TargetFolderPath.TargetCurrentFolder == depth) {
+                        sql = "DELETE FROM FileList WHERE FolderName = @folderName";
+
+                        cmd.CommandText = sql;
+                        cmd.Parameters.Add("folderName", System.Data.DbType.String);
+                        cmd.Parameters["folderName"].Value = folderPath;
+
+                    } else if (TargetFolderPath.TargetIncluseSubFolder == depth) {
+                        sql = "DELETE FROM FileList WHERE FilePath GLOB @filePath";
+
+                        cmd.CommandText = sql;
+                        cmd.Parameters.Add("filePath", System.Data.DbType.String);
+                        cmd.Parameters["filePath"].Value = folderPath + "*";
+
+                    } else {
+                        throw new FileSearchException("第二引数が不正な値です");
+                    }
+
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+                trans.Commit();
+            }
+        }
+
+        public void DeleteTargetFolderPath(string folderPath) {
+            using (SQLiteTransaction trans = con.BeginTransaction()) {
+                using (SQLiteCommand cmd = con.CreateCommand()) {
+                    string sql = "DELETE FROM TargetFolderPath WHERE FolderPath = @folderPath";
+                    cmd.CommandText = sql;
+
+                    cmd.Parameters.Add("folderPath", System.Data.DbType.String);
+                    cmd.Parameters["folderPath"].Value = folderPath;
+
+                    cmd.Prepare();
+                    cmd.ExecuteNonQuery();
+                }
+                trans.Commit();
+            }
+        }
 
         /// <summary>
         /// コネクションを閉じる

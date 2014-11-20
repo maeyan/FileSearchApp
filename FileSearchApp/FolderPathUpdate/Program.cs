@@ -9,13 +9,30 @@ using System.Windows.Forms;
 namespace FolderPathUpdate {
     class Program {
         static void Main(string[] args) {
-            MessageBox.Show("");
             //引数が２の時(フォルダパス、サブフォルダを対象とするか？)
             if (args.Length == 2) {
-                MessageBox.Show(args[0]);
-                Update(args[0], args[1]);
-            } else {
+                try {
+                    Update(args[0], args[1]);
+                    MessageBox.Show("更新完了しました");
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
 
+            } else if (args.Length == 0 || args.Length == 1) {
+                try {
+                    SearchDB db = new SearchDB();
+                    db.UpdateAllFilePaths();                    
+
+                    if (args.Length == 1 && args[0] == "true") {
+                        MessageBox.Show("更新完了しました");
+                    }
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+            } else {
+                throw new FileSearchException("UpdateFolder.exeの引数は、0または2つ必要です");
             }
         }
 
@@ -38,9 +55,12 @@ namespace FolderPathUpdate {
                 string[] filePaths = Directory.GetFiles(folderPath, "*", option);
 
                 SearchDB db = new SearchDB();
+                db.DeleteFilePathInTargetFolder(folderPath, depth);
+                
                 db.UpdateFilePaths(folderPath, filePaths);
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
+                return;
             }
         }
     }
