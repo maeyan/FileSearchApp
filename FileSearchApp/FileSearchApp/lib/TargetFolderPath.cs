@@ -12,7 +12,7 @@ namespace FileSearchApp.lib {
         const string LB_FOLDER_PATN = "lb_FolderPath@";
         const string LB_DEPTH = "lb_Depth@";
         const string PNL_FOLDER_PATH = "pnl_FolderPath@";
-        const string UPDATE_EXE = "FolderPathUpdate.exe";
+        static public readonly string UPDATE_EXE = "FolderPathUpdate.exe";
 
         static public string TargetIncluseSubFolder = "[サブフォルダも含む]";
         static public string TargetCurrentFolder = "[サブフォルダは含まない]";
