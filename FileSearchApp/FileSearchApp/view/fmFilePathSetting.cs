@@ -60,5 +60,11 @@ namespace FileSearchApp {
 
         }
 
+        private void bt_AllUpdate_Click(object sender, EventArgs e) {
+            string currentFolderPath = System.Windows.Forms.Application.StartupPath;
+            string updateExePath = currentFolderPath + @"\" + TargetFolderPath.UPDATE_EXE;
+            System.Diagnostics.Process.Start(updateExePath, "true");
+        }
+
     }
 }

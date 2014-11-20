@@ -5,13 +5,15 @@ using System.IO;
 using System.Windows.Forms;
 
 namespace FileSearchApp.lib {
-    class TargetFolderPath {
+    public class TargetFolderPath {
         const string BT_UPDATE = "bt_Update@";
         const string BT_DELETE = "bt_Delete@";
+        const string BT_CLEAR = "bt_Clear@";
         const string LB_FOLDER_NAME = "lb_FolderName@";
         const string LB_FOLDER_PATN = "lb_FolderPath@";
         const string LB_DEPTH = "lb_Depth@";
         const string PNL_FOLDER_PATH = "pnl_FolderPath@";
+        static public readonly string UPDATE_EXE = "FolderPathUpdate.exe";
 
         static public string TargetIncluseSubFolder = "[サブフォルダも含む]";
         static public string TargetCurrentFolder = "[サブフォルダは含まない]";
@@ -163,8 +165,8 @@ namespace FileSearchApp.lib {
             bt_Update.ForeColor = Color.White;
             bt_Update.Location = new Point(180, 40);
             bt_Update.Name = BT_UPDATE + counter.ToString();
-            bt_Update.Size = new Size(60, 23);
-            bt_Update.Text = "Update";
+            bt_Update.Size = new Size(68, 23);
+            bt_Update.Text = "UpdateDB";
             bt_Update.Visible = false;
             bt_Update.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             bt_Update.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
@@ -176,14 +178,30 @@ namespace FileSearchApp.lib {
             bt_Delete.BackColor = Color.FromArgb(100, 100, 100);
             bt_Delete.Font = new Font("メイリオ", 7);
             bt_Delete.ForeColor = Color.White;
-            bt_Delete.Location = new Point(245, 40);
+            bt_Delete.Location = new Point(250, 40);
             bt_Delete.Name = BT_DELETE + counter.ToString();
-            bt_Delete.Size = new Size(60, 23);
-            bt_Delete.Text = "Delete";
+            bt_Delete.Size = new Size(68, 23);
+            bt_Delete.Text = "DeleteDB";
             bt_Delete.Visible = false;
             bt_Delete.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
             bt_Delete.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
             bt_Delete.Click += new System.EventHandler(this.bt_Delete_Click);
+
+
+            //Button
+            Button bt_Clear = new Button();
+            bt_Clear.FlatStyle = FlatStyle.Flat;
+            bt_Clear.BackColor = Color.FromArgb(100, 100, 100);
+            bt_Clear.Font = new Font("メイリオ", 7);
+            bt_Clear.ForeColor = Color.White;
+            bt_Clear.Location = new Point(320, 40);
+            bt_Clear.Name = BT_CLEAR + counter.ToString();
+            bt_Clear.Size = new Size(68, 23);
+            bt_Clear.Text = "ClearList";
+            bt_Clear.Visible = false;
+            bt_Clear.MouseEnter += new System.EventHandler(this.pnl_Area_MouseEnter);
+            bt_Clear.MouseLeave += new System.EventHandler(this.pnl_Area_MouseLeave);
+            bt_Clear.Click += new System.EventHandler(this.bt_Clear_Click);
 
             //Panel
             Panel pnl_Area = new Panel();
@@ -199,43 +217,66 @@ namespace FileSearchApp.lib {
             pnl_Area.Controls.Add(lb_Depth);
             pnl_Area.Controls.Add(bt_Update);
             pnl_Area.Controls.Add(bt_Delete);
+            pnl_Area.Controls.Add(bt_Clear);
             _flp_targetFolderPath.Controls.Add(pnl_Area);
         }
 
-        private void bt_Update_Click(object sender, EventArgs e) {
+        private void bt_Delete_Click(object sender, EventArgs e) {
+            string id = ((Button)sender).Name.Split('@')[1];
+            Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[PNL_FOLDER_PATH + id];
+            Label lb_FolderPath = (Label)pnl_Area.Controls[LB_FOLDER_PATN + id];
+            Label lb_Depth = (Label)pnl_Area.Controls[LB_DEPTH + id];
 
+            SearchDB db = new SearchDB();
+            db.DeleteFilePathInTargetFolder(lb_FolderPath.Text, lb_Depth.Text);
+            MessageBox.Show("削除完了しました");
         }
 
-        private void bt_Delete_Click(object sender, EventArgs e) {
+        private void bt_Update_Click(object sender, EventArgs e) {
+            string id = ((Button)sender).Name.Split('@')[1];
+            Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[PNL_FOLDER_PATH + id];
+            Label lb_FolderPath = (Label)pnl_Area.Controls[LB_FOLDER_PATN + id];
+            Label lb_Depth = (Label)pnl_Area.Controls[LB_DEPTH + id];
+            
+            string currentFolderPath = System.Windows.Forms.Application.StartupPath;
+            string updateExePath = currentFolderPath + @"\" + UPDATE_EXE;
+            string argument = "\"" + lb_FolderPath.Text + "\" " + lb_Depth.Text;
+            System.Diagnostics.Process.Start(updateExePath, argument);
+        }
+
+        private void bt_Clear_Click(object sender, EventArgs e) {
             string id = ((Button)sender).Name.Split('@')[1];
             Panel pnl_Area = (Panel)_flp_targetFolderPath.Controls[PNL_FOLDER_PATH + id];
             Label lb_FolderPath = (Label) pnl_Area.Controls[LB_FOLDER_PATN + id];
 
             SearchDB db = new SearchDB();
             db.DeleteTargetFolderPath(lb_FolderPath.Text);
-            _flp_targetFolderPath.Controls.Remove(pnl_Area);
-            
+            _flp_targetFolderPath.Controls.Remove(pnl_Area);            
         }
 
         private void pnl_Area_MouseEnter(object sender, EventArgs e) {
             string pnl_AreaId = "";
             string bt_UpdateId = "";
             string bt_DeleteId = "";
+            string bt_ClearId = "";
 
             if (sender.GetType().ToString() == "System.Windows.Forms.Panel") {
                 pnl_AreaId = ((Panel)sender).Name;
                 bt_UpdateId = BT_UPDATE + ((Panel)sender).Name.Split('@')[1];
                 bt_DeleteId = BT_DELETE + ((Panel)sender).Name.Split('@')[1];
+                bt_ClearId = BT_CLEAR + ((Panel)sender).Name.Split('@')[1];
 
             } else if (sender.GetType().ToString() == "System.Windows.Forms.Label") {
                 pnl_AreaId = PNL_FOLDER_PATH + ((Label)sender).Name.Split('@')[1];
                 bt_UpdateId = BT_UPDATE + ((Label)sender).Name.Split('@')[1];
                 bt_DeleteId = BT_DELETE + ((Label)sender).Name.Split('@')[1];
+                bt_ClearId = BT_CLEAR + ((Label)sender).Name.Split('@')[1];
 
             } else if (sender.GetType().ToString() == "System.Windows.Forms.Button") {
                 pnl_AreaId = PNL_FOLDER_PATH + ((Button)sender).Name.Split('@')[1];
                 bt_UpdateId = BT_UPDATE + ((Button)sender).Name.Split('@')[1];
                 bt_DeleteId = BT_DELETE + ((Button)sender).Name.Split('@')[1];
+                bt_ClearId = BT_CLEAR + ((Button)sender).Name.Split('@')[1];
             }
 
             //Panelの背景色をつける
@@ -247,27 +288,33 @@ namespace FileSearchApp.lib {
             bt_Update.Visible = true;
             Button bt_Delete = (Button)pnl_Area.Controls[bt_DeleteId];
             bt_Delete.Visible = true;
+            Button bt_Clear = (Button)pnl_Area.Controls[bt_ClearId];
+            bt_Clear.Visible = true;
         }
 
         private void pnl_Area_MouseLeave(object sender, EventArgs e) {
             string pnl_AreaId = "";
             string bt_UpdateId = "";
             string bt_DeleteId = "";
-            
+            string bt_ClearId = "";
+
             if (sender.GetType().ToString() == "System.Windows.Forms.Panel") {
                 pnl_AreaId = ((Panel)sender).Name;
                 bt_UpdateId = BT_UPDATE + ((Panel)sender).Name.Split('@')[1];
                 bt_DeleteId = BT_DELETE + ((Panel)sender).Name.Split('@')[1];
+                bt_ClearId = BT_CLEAR + ((Panel)sender).Name.Split('@')[1];
 
             } else if (sender.GetType().ToString() == "System.Windows.Forms.Label") {
                 pnl_AreaId = PNL_FOLDER_PATH + ((Label)sender).Name.Split('@')[1];
                 bt_UpdateId = BT_UPDATE + ((Label)sender).Name.Split('@')[1];
                 bt_DeleteId = BT_DELETE + ((Label)sender).Name.Split('@')[1];
+                bt_ClearId = BT_CLEAR + ((Label)sender).Name.Split('@')[1];
 
             } else if (sender.GetType().ToString() == "System.Windows.Forms.Button") {
                 pnl_AreaId = PNL_FOLDER_PATH + ((Button)sender).Name.Split('@')[1];
                 bt_UpdateId = BT_UPDATE + ((Button)sender).Name.Split('@')[1];
                 bt_DeleteId = BT_DELETE + ((Button)sender).Name.Split('@')[1];
+                bt_ClearId = BT_CLEAR + ((Button)sender).Name.Split('@')[1];
 
             }
 
@@ -290,6 +337,8 @@ namespace FileSearchApp.lib {
                 bt_Update.Visible = false;
                 Button bt_Delete = (Button)pnl_Area.Controls[bt_DeleteId];
                 bt_Delete.Visible = false;
+                Button bt_Clear = (Button)pnl_Area.Controls[bt_ClearId];
+                bt_Clear.Visible = false;
             }
         }
 
