@@ -12,6 +12,8 @@ namespace FileSearchApp.lib {
         static string dbName = @"\search.db";
         private SQLiteConnection con = null;
 
+
+
         /// <summary>
         /// DB Open、プラグマの設定をしておく
         /// </summary>
@@ -38,21 +40,6 @@ namespace FileSearchApp.lib {
             }
         }
 
-        public void DeleteTargetFolderPath(string folderPath) {
-            using (SQLiteTransaction trans = con.BeginTransaction()) {
-                using (SQLiteCommand cmd = con.CreateCommand()) {
-                    string sql = "DELETE FROM TargetFolderPath WHERE FolderPath = @folderPath";
-                    cmd.CommandText = sql;
-
-                    cmd.Parameters.Add("folderPath", System.Data.DbType.String);
-                    cmd.Parameters["folderPath"].Value = folderPath;
-
-                    cmd.Prepare();
-                    cmd.ExecuteNonQuery();
-                }
-                trans.Commit();
-            }
-        }
 
         /// <summary>
         /// フォルダパスをDBに登録する
