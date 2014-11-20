@@ -33,7 +33,7 @@
             this.rb_IncludeSubFolder = new System.Windows.Forms.RadioButton();
             this.bt_addFolderPath = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.bt_AllUpdate = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.flp_targetFolderPath.SuspendLayout();
             this.pnl_form.SuspendLayout();
@@ -127,25 +127,26 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.bt_AllUpdate);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(3, 110);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(555, 34);
             this.panel1.TabIndex = 5;
             // 
-            // button1
+            // bt_AllUpdate
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(133)))), ((int)(((byte)(244)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(181, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 25);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "全て更新";
-            this.button1.UseVisualStyleBackColor = false;
+            this.bt_AllUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.bt_AllUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(133)))), ((int)(((byte)(244)))));
+            this.bt_AllUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bt_AllUpdate.ForeColor = System.Drawing.Color.White;
+            this.bt_AllUpdate.Location = new System.Drawing.Point(181, 4);
+            this.bt_AllUpdate.Name = "bt_AllUpdate";
+            this.bt_AllUpdate.Size = new System.Drawing.Size(76, 25);
+            this.bt_AllUpdate.TabIndex = 6;
+            this.bt_AllUpdate.Text = "全て更新";
+            this.bt_AllUpdate.UseVisualStyleBackColor = false;
+            this.bt_AllUpdate.Click += new System.EventHandler(this.bt_AllUpdate_Click);
             // 
             // label1
             // 
@@ -191,6 +192,6 @@
         private System.Windows.Forms.RadioButton rb_IncludeSubFolder;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button bt_AllUpdate;
     }
 }
