@@ -1,18 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Data.SQLite;
-using System.IO;
 using System.Windows.Forms;
 
 namespace FileSearchApp.lib {
     public class SearchDB : IDisposable {
+
         const string PASSWORD = "password";
         static string dbName = @"\search.db";
         private SQLiteConnection con = null;
+        int _resultCount = 0;
+        double _searchResult = 0;
 
+        public double searchResult {
+            get { return _searchResult; }
+        }
 
+        public int resultCount {
+            get { return _resultCount; }
+        }
 
         /// <summary>
         /// DB Open、プラグマの設定をしておく
@@ -269,6 +279,47 @@ namespace FileSearchApp.lib {
                 }
                 trans.Commit();
             }
+        }
+
+
+        public List<string> selectFileData(string searchWord, int offset) {
+            //filePathのリストを返す
+            List<string> filePaths = new List<string>();
+
+            Stopwatch sw = Stopwatch.StartNew();
+
+            //件数取得
+            string sql = "";
+            sql += string.Format("SELECT Count(*) ");
+            sql += string.Format("FROM FileList ");
+            if (searchWord != "") { sql += string.Format(" WHERE lower(FileName) GLOB '*{0}*' ", searchWord.ToLower()); }
+            sql += string.Format(";");
+
+            using (SQLiteCommand cmd = con.CreateCommand()) {
+                cmd.CommandText = sql;
+                _resultCount = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+
+            //検索結果取得
+            sql = "";
+            sql += string.Format("SELECT  FilePath ");
+            sql += string.Format("FROM FileList ");
+            if (searchWord != "") { sql += string.Format(" WHERE lower(FileName) GLOB '*{0}*' ", searchWord.ToLower()); }
+            sql += string.Format("LIMIT 100 OFFSET {0};", offset);
+
+
+            using (SQLiteCommand cmd = con.CreateCommand()) {
+                cmd.CommandText = sql;
+                using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        filePaths.Add(reader.GetString(0));
+                    }
+                }    
+            }
+            
+            _searchResult = sw.ElapsedMilliseconds;
+
+            return filePaths;
         }
 
         /// <summary>
