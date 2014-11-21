@@ -42,11 +42,6 @@ namespace FileSearchApp.lib {
                 folderPath = folderPath.Substring(0, folderPath.Length - 1);
             }
 
-            //パスが存在するかチェック
-            if (!Directory.Exists(folderPath)) {
-                throw new FileSearchException("フォルダが存在しません。");
-            }
-
             bool includeSubFolder = false;
             if (depth == TargetIncluseSubFolder) {
                 includeSubFolder = true;
