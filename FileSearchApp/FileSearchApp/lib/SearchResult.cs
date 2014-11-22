@@ -23,8 +23,7 @@ namespace FileSearchApp.lib {
             //flowLayoutPanel上のControlsでパネルを削除したいので後ろからアクセス
             for (int i = _flp_result.Controls.Count - 1; -1 < i; i--) {
                 //Panelかつpnl_resultの名前を持つと削除
-                if (_flp_result.Controls[i].GetType().ToString() == "System.Windows.Forms.Panel"
-                        && -1 < _flp_result.Controls[i].Name.IndexOf(PNL_RESULT)) {
+                if (_flp_result.Controls[i].GetType().ToString() == "System.Windows.Forms.Panel") {
                     _flp_result.Controls.Remove(_flp_result.Controls[i]);
                 }
             }
