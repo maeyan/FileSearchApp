@@ -61,12 +61,12 @@
             // 
             // lbl_ShowRange
             // 
-            this.lbl_ShowRange.Location = new System.Drawing.Point(652, 89);
+            this.lbl_ShowRange.Location = new System.Drawing.Point(95, 91);
             this.lbl_ShowRange.Name = "lbl_ShowRange";
             this.lbl_ShowRange.Size = new System.Drawing.Size(124, 18);
             this.lbl_ShowRange.TabIndex = 8;
             this.lbl_ShowRange.Text = "　";
-            this.lbl_ShowRange.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbl_ShowRange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // button1
             // 
@@ -82,13 +82,12 @@
             // 
             // lbl_Count
             // 
-            this.lbl_Count.AutoSize = true;
-            this.lbl_Count.Location = new System.Drawing.Point(95, 89);
+            this.lbl_Count.Location = new System.Drawing.Point(511, 91);
             this.lbl_Count.Name = "lbl_Count";
-            this.lbl_Count.Size = new System.Drawing.Size(27, 18);
+            this.lbl_Count.Size = new System.Drawing.Size(108, 18);
             this.lbl_Count.TabIndex = 4;
             this.lbl_Count.Text = "0件";
-            this.lbl_Count.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_Count.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // pb_Search
             // 
