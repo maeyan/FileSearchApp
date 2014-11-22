@@ -31,10 +31,11 @@ namespace FileSearchApp {
             Application.DoEvents();
 
             int offset = 0;
+            int resultPerPage = 100;
 
             string searchWord = tb_SearchWord.Text.Trim();
             SearchDB db = new SearchDB();
-            List<string> filePaths = db.selectFileData(searchWord, offset);
+            List<string> filePaths = db.selectFileData(searchWord, offset, resultPerPage);
             this.lbl_Count.Text = string.Format("{0}件 ({1}秒)",db.resultCount, (db.searchResult / 1000).ToString());
             
             this.lbl_ShowRange.Text = string.Format("{0}-{1}件を表示", offset + 1, offset + 100);

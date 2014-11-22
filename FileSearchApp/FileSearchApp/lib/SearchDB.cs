@@ -305,7 +305,7 @@ namespace FileSearchApp.lib {
             sql += string.Format("SELECT  FilePath ");
             sql += string.Format("FROM FileList ");
             if (searchWord != "") { sql += string.Format(" WHERE lower(FileName) GLOB '*{0}*' ", searchWord.ToLower()); }
-            sql += string.Format("LIMIT 100 OFFSET {0};", offset);
+            sql += string.Format("LIMIT {0} OFFSET {1};", resultPerPage, offset);
 
 
             using (SQLiteCommand cmd = con.CreateCommand()) {
