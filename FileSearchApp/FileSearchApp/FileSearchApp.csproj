@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="lib\FileSearchException.cs" />
+    <Compile Include="lib\Pagenate.cs" />
     <Compile Include="lib\SearchDB.cs" />
     <Compile Include="lib\SearchResult.cs" />
     <Compile Include="lib\TargetFolderPath.cs" />

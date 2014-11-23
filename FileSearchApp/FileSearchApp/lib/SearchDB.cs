@@ -282,7 +282,7 @@ namespace FileSearchApp.lib {
         }
 
 
-        public List<string> selectFileData(string searchWord, int offset) {
+        public List<string> selectFileData(string searchWord, int offset, int resultPerPage) {
             //filePathのリストを返す
             List<string> filePaths = new List<string>();
 

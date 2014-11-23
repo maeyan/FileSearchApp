@@ -327,7 +327,7 @@ namespace FileSearchApp.lib {
             Point cp = pnl_Area.PointToClient(sp);
 
             //更新ボタンと、削除ボタンを非表示にする(Panelから出た時だけ削除する)
-            if (cp.Y < 0 || pnl_Area.Height < cp.Y || cp.X < 0 || pnl_Area.Width < cp.X) {
+            if (cp.Y < 0 || pnl_Area.Height <= cp.Y || cp.X < 0 || pnl_Area.Width <= cp.X) {
                 Button bt_Update = (Button)pnl_Area.Controls[bt_UpdateId];
                 bt_Update.Visible = false;
                 Button bt_Delete = (Button)pnl_Area.Controls[bt_DeleteId];

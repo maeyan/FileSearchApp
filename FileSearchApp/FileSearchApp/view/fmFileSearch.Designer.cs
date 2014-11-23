@@ -41,6 +41,7 @@
             // flp_SearchResult
             // 
             this.flp_SearchResult.AutoScroll = true;
+            this.flp_SearchResult.BackColor = System.Drawing.Color.White;
             this.flp_SearchResult.Location = new System.Drawing.Point(32, 113);
             this.flp_SearchResult.Name = "flp_SearchResult";
             this.flp_SearchResult.Size = new System.Drawing.Size(752, 351);
@@ -140,7 +141,6 @@
             this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "fmFileSearch";
             this.Text = "ファイル検索";
-            this.Deactivate += new System.EventHandler(this.fmFileSearch_Deactivate);
             this.pnl_form.ResumeLayout(false);
             this.pnl_form.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pb_Search)).EndInit();
