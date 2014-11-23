@@ -42,11 +42,6 @@ namespace FileSearchApp.lib {
                 folderPath = folderPath.Substring(0, folderPath.Length - 1);
             }
 
-            //パスが存在するかチェック
-            if (!Directory.Exists(folderPath)) {
-                throw new FileSearchException("フォルダが存在しません。");
-            }
-
             bool includeSubFolder = false;
             if (depth == TargetIncluseSubFolder) {
                 includeSubFolder = true;
@@ -332,7 +327,7 @@ namespace FileSearchApp.lib {
             Point cp = pnl_Area.PointToClient(sp);
 
             //更新ボタンと、削除ボタンを非表示にする(Panelから出た時だけ削除する)
-            if (cp.Y < 0 || pnl_Area.Height < cp.Y || cp.X < 0 || pnl_Area.Width < cp.X) {
+            if (cp.Y < 0 || pnl_Area.Height <= cp.Y || cp.X < 0 || pnl_Area.Width <= cp.X) {
                 Button bt_Update = (Button)pnl_Area.Controls[bt_UpdateId];
                 bt_Update.Visible = false;
                 Button bt_Delete = (Button)pnl_Area.Controls[bt_DeleteId];
